@@ -2,6 +2,30 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
+// Notification types and functions
+interface NotificationData {
+  type: 'email' | 'sms';
+  to: string;
+  subject?: string;
+  message: string;
+  priority: 'high' | 'medium' | 'low';
+}
+
+// Mock notification sending functions (in production, these would integrate with actual services)
+const sendEmail = async (to: string, subject: string, message: string): Promise<boolean> => {
+  console.log(`[EMAIL] To: ${to}, Subject: ${subject}, Message: ${message}`);
+  // Simulate email sending delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  return true;
+};
+
+const sendSMS = async (to: string, message: string): Promise<boolean> => {
+  console.log(`[SMS] To: ${to}, Message: ${message}`);
+  // Simulate SMS sending delay
+  await new Promise(resolve => setTimeout(resolve, 800));
+  return true;
+};
+
 export async function registerRoutes(app: Express): Promise<Server> {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
   const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
@@ -284,6 +308,124 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Content analysis error:', error);
       res.status(500).json({ error: 'Failed to analyze content' });
+    }
+  });
+
+  // Notification endpoints
+  app.post('/api/notifications/test-email', async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ error: 'Email address is required' });
+      }
+
+      const success = await sendEmail(
+        email,
+        '[ContentGuard] Test Email Alert',
+        'This is a test email notification from ContentGuard. If you received this, your email alerts are configured correctly.'
+      );
+
+      if (success) {
+        res.json({ 
+          success: true, 
+          message: 'Test email sent successfully',
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        res.status(500).json({ error: 'Failed to send test email' });
+      }
+    } catch (error) {
+      console.error('Test email error:', error);
+      res.status(500).json({ error: 'Internal server error while sending test email' });
+    }
+  });
+
+  app.post('/api/notifications/test-sms', async (req, res) => {
+    try {
+      const { phone } = req.body;
+      
+      if (!phone) {
+        return res.status(400).json({ error: 'Phone number is required' });
+      }
+
+      const success = await sendSMS(
+        phone,
+        '[ContentGuard] Test SMS: Your SMS alerts are configured correctly. This is a test message.'
+      );
+
+      if (success) {
+        res.json({ 
+          success: true, 
+          message: 'Test SMS sent successfully',
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        res.status(500).json({ error: 'Failed to send test SMS' });
+      }
+    } catch (error) {
+      console.error('Test SMS error:', error);
+      res.status(500).json({ error: 'Internal server error while sending test SMS' });
+    }
+  });
+
+  app.post('/api/notifications/send-alert', async (req, res) => {
+    try {
+      const { notifications, threatData } = req.body;
+      
+      if (!notifications || !Array.isArray(notifications)) {
+        return res.status(400).json({ error: 'Notifications array is required' });
+      }
+
+      const results = [];
+
+      for (const notification of notifications) {
+        try {
+          let success = false;
+          
+          if (notification.type === 'email') {
+            success = await sendEmail(
+              notification.to,
+              notification.subject || '[ContentGuard] Threat Alert',
+              notification.message
+            );
+          } else if (notification.type === 'sms') {
+            success = await sendSMS(
+              notification.to,
+              notification.message
+            );
+          }
+
+          results.push({
+            type: notification.type,
+            to: notification.to,
+            success,
+            timestamp: new Date().toISOString()
+          });
+        } catch (error) {
+          console.error(`Failed to send ${notification.type} to ${notification.to}:`, error);
+          results.push({
+            type: notification.type,
+            to: notification.to,
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error',
+            timestamp: new Date().toISOString()
+          });
+        }
+      }
+
+      const successCount = results.filter(r => r.success).length;
+      const totalCount = results.length;
+
+      res.json({
+        success: successCount > 0,
+        message: `${successCount}/${totalCount} notifications sent successfully`,
+        results,
+        threatData: threatData || null
+      });
+    } catch (error) {
+      console.error('Send alert error:', error);
+      res.status(500).json({ error: 'Internal server error while sending alerts' });
     }
   });
 

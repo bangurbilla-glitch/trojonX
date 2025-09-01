@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
+import LiveDashboard from './components/LiveDashboard';
+import TrendAnalysis from './components/TrendAnalysis';
 import DataUpload from './components/DataUpload';
 import Analysis from './components/Analysis';
 import Settings from './components/Settings';
@@ -17,6 +19,8 @@ function App() {
           <main className="container mx-auto px-4 py-8">
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/live-dashboard" element={<LiveDashboard />} />
+              <Route path="/trends" element={<TrendAnalysis />} />
               <Route path="/upload" element={<DataUpload />} />
               <Route path="/analysis" element={<Analysis />} />
               <Route path="/youtube" element={<YouTubeMonitoring />} />
