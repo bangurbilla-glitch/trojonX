@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Shield, Upload, BarChart3, Settings, Moon, Sun, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    // Apply dark mode by default on component mount
+    document.documentElement.classList.add('dark');
+  }, []);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
