@@ -28,10 +28,17 @@ const YouTubeMonitoring = () => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
   const [channels, setChannels] = useState<YouTubeChannel[]>([]);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('search');
+  const [activeTab, setActiveTab] = useState('analysis');
   const [error, setError] = useState('');
   const [analysisData, setAnalysisData] = useState<any>(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
+
+  useEffect(() => {
+    // Load default analysis when component mounts
+    if (activeTab === 'analysis' && !analysisData) {
+      runDefaultAnalysis();
+    }
+  }, [activeTab]);
 
   const formatNumber = (num: string) => {
     const number = parseInt(num);
@@ -176,26 +183,6 @@ const YouTubeMonitoring = () => {
         {/* Navigation Tabs */}
         <div className="flex space-x-4 border-b border-gray-200 dark:border-gray-700">
           <button
-            onClick={() => setActiveTab('search')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
-              activeTab === 'search'
-                ? 'border-red-500 text-red-600 dark:text-red-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-            }`}
-          >
-            Search Content
-          </button>
-          <button
-            onClick={() => setActiveTab('channel')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
-              activeTab === 'channel'
-                ? 'border-red-500 text-red-600 dark:text-red-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-            }`}
-          >
-            Channel Analysis
-          </button>
-          <button
             onClick={() => {
               setActiveTab('analysis');
               if (!analysisData) runDefaultAnalysis();
@@ -208,10 +195,30 @@ const YouTubeMonitoring = () => {
           >
             Content Analysis
           </button>
+          <button
+            onClick={() => setActiveTab('channel')}
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+              activeTab === 'channel'
+                ? 'border-red-500 text-red-600 dark:text-red-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            Channel Analysis
+          </button>
+          <button
+            onClick={() => setActiveTab('search')}
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+              activeTab === 'search'
+                ? 'border-red-500 text-red-600 dark:text-red-400'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+            }`}
+          >
+            Search Content
+          </button>
         </div>
       </div>
 
-      {/* Search Interface */}
+      {/* Interface Content */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         {activeTab === 'search' && (
           <div className="space-y-4">
