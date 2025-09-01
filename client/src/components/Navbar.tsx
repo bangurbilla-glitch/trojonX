@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, Upload, BarChart3, Settings, Moon, Sun, Menu, X } from 'lucide-react';
+import { Shield, Upload, BarChart3, Settings, Moon, Sun, Menu, X, Play } from 'lucide-react';
 
 const Navbar = () => {
   const [isDark, setIsDark] = useState(true);
@@ -21,6 +21,7 @@ const Navbar = () => {
     { path: '/', label: 'Dashboard', icon: BarChart3 },
     { path: '/upload', label: 'Data Upload', icon: Upload },
     { path: '/analysis', label: 'Analysis', icon: Shield },
+    { path: '/youtube', label: 'YouTube Monitoring', icon: Play },
     { path: '/settings', label: 'Settings', icon: Settings },
   ];
 

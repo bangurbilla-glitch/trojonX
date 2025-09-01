@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import DataUpload from './components/DataUpload';
 import Analysis from './components/Analysis';
 import Settings from './components/Settings';
+import YouTubeMonitoring from './components/YouTubeMonitoring';
 import { AnalysisProvider } from './context/AnalysisContext';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/upload" element={<DataUpload />} />
               <Route path="/analysis" element={<Analysis />} />
+              <Route path="/youtube" element={<YouTubeMonitoring />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>
