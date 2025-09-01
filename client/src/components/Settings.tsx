@@ -170,9 +170,9 @@ const Settings = () => {
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Recent Alerts - 2025</h3>
         <div className="space-y-4">
           {/* Active Campaign Alert */}
-          <div className="border border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
+          <div className="border border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20 rounded-lg p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-102 animate-slide-in-left">
             <div className="flex items-start space-x-3">
-              <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
+              <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 animate-pulse" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-red-800 dark:text-red-300">
                   High Priority: Anti-India Campaign Detected
@@ -193,9 +193,9 @@ const Settings = () => {
           </div>
 
           {/* Resolved Alert */}
-          <div className="border border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+          <div className="border border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 rounded-lg p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-102 animate-slide-in-right">
             <div className="flex items-start space-x-3">
-              <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
+              <Check className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 animate-bounce-subtle" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-green-800 dark:text-green-300">
                   Resolved: Anti-India Hashtag Campaign
@@ -216,9 +216,9 @@ const Settings = () => {
           </div>
 
           {/* Medium Priority Alert */}
-          <div className="border border-yellow-200 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+          <div className="border border-yellow-200 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-102 animate-slide-in-left" style={{ animationDelay: '200ms' }}>
             <div className="flex items-start space-x-3">
-              <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+              <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5 animate-pulse" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
                   Medium: Cultural Appropriation Campaign
@@ -239,9 +239,9 @@ const Settings = () => {
           </div>
 
           {/* Monitoring Alert */}
-          <div className="border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+          <div className="border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-102 animate-slide-in-right" style={{ animationDelay: '300ms' }}>
             <div className="flex items-start space-x-3">
-              <Bell className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+              <Bell className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 animate-ring" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-blue-800 dark:text-blue-300">
                   Monitoring: Pro-India Counter-Narrative
@@ -296,31 +296,31 @@ const Settings = () => {
       <div>
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Campaign Tracking</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 animate-fade-in-up">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Active Threats</span>
-              <span className="text-lg font-bold text-red-600 dark:text-red-400">3</span>
+              <span className="text-lg font-bold text-red-600 dark:text-red-400 animate-number-change">3</span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Currently monitoring</p>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Resolved This Month</span>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">12</span>
+              <span className="text-lg font-bold text-green-600 dark:text-green-400 animate-number-change">12</span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Successfully addressed</p>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Channels Monitored</span>
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">1,247</span>
+              <span className="text-lg font-bold text-blue-600 dark:text-blue-400 animate-number-change">1,247</span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Under surveillance</p>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Detection Accuracy</span>
-              <span className="text-lg font-bold text-purple-600 dark:text-purple-400">94.2%</span>
+              <span className="text-lg font-bold text-purple-600 dark:text-purple-400 animate-number-change">94.2%</span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">System reliability</p>
           </div>

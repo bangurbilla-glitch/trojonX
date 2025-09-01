@@ -181,36 +181,36 @@ const YouTubeMonitoring = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex space-x-4 border-b border-gray-200 dark:border-gray-700 relative">
           <button
             onClick={() => {
               setActiveTab('analysis');
               if (!analysisData) runDefaultAnalysis();
             }}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-all duration-300 transform hover:scale-105 ${
               activeTab === 'analysis'
-                ? 'border-red-500 text-red-600 dark:text-red-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                ? 'border-red-500 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             Content Analysis
           </button>
           <button
             onClick={() => setActiveTab('channel')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-all duration-300 transform hover:scale-105 ${
               activeTab === 'channel'
-                ? 'border-red-500 text-red-600 dark:text-red-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                ? 'border-red-500 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             Channel Analysis
           </button>
           <button
             onClick={() => setActiveTab('search')}
-            className={`px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+            className={`px-4 py-2 font-medium text-sm border-b-2 transition-all duration-300 transform hover:scale-105 ${
               activeTab === 'search'
-                ? 'border-red-500 text-red-600 dark:text-red-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                ? 'border-red-500 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             Search Content
@@ -237,16 +237,16 @@ const YouTubeMonitoring = () => {
               <button
                 onClick={searchVideos}
                 disabled={loading}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
+                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
                 data-testid="button-search-videos"
               >
-                <Search className="h-4 w-4" />
+                <Search className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                 <span>Search Videos</span>
               </button>
               <button
                 onClick={searchChannels}
                 disabled={loading}
-                className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
+                className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
                 data-testid="button-search-channels"
               >
                 <Search className="h-4 w-4" />
@@ -291,20 +291,20 @@ const YouTubeMonitoring = () => {
                 <button
                   onClick={runDefaultAnalysis}
                   disabled={loadingAnalysis}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center space-x-2"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:shadow-lg disabled:opacity-50 transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
                   data-testid="button-default-analysis"
                 >
-                  <BarChart3 className="h-4 w-4" />
+                  <BarChart3 className={`h-4 w-4 ${loadingAnalysis ? 'animate-pulse' : ''}`} />
                   <span>Default Analysis</span>
                 </button>
                 {videos.length > 0 && (
                   <button
                     onClick={() => analyzeContent(videos.map(v => v.id))}
                     disabled={loadingAnalysis}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors flex items-center space-x-2"
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 hover:shadow-lg disabled:opacity-50 transition-all duration-300 transform hover:scale-105 animate-slide-in-right flex items-center space-x-2"
                     data-testid="button-analyze-content"
                   >
-                    <Shield className="h-4 w-4" />
+                    <Shield className={`h-4 w-4 ${loadingAnalysis ? 'animate-pulse' : ''}`} />
                     <span>Analyze Current Results</span>
                   </button>
                 )}
@@ -312,16 +312,16 @@ const YouTubeMonitoring = () => {
             </div>
 
             {loadingAnalysis && (
-              <div className="text-center py-8" data-testid="analysis-loading">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <p className="mt-2 text-gray-600 dark:text-gray-300">Running analysis...</p>
+              <div className="text-center py-8 animate-fade-in" data-testid="analysis-loading">
+                <div className="enhanced-spinner inline-block rounded-full h-8 w-8"></div>
+                <p className="mt-2 text-gray-600 dark:text-gray-300 animate-pulse">Running analysis...</p>
               </div>
             )}
 
             {analysisData && (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 animate-fade-in">
                 {/* Sentiment Analysis */}
-                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-slide-in-left">
                   <div className="flex items-center space-x-3 mb-4">
                     <Activity className="h-6 w-6 text-green-600 dark:text-green-400" />
                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Sentiment Analysis</h4>
@@ -333,9 +333,9 @@ const YouTubeMonitoring = () => {
                         {analysisData.sentiment?.positive || '0'}%
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
                       <div 
-                        className="bg-green-600 h-2 rounded-full" 
+                        className="bg-green-600 h-2 rounded-full transition-all duration-1000 ease-out animate-width-expand" 
                         style={{ width: `${analysisData.sentiment?.positive || 0}%` }}
                       ></div>
                     </div>
@@ -488,8 +488,13 @@ const YouTubeMonitoring = () => {
             <span>Videos ({videos.length})</span>
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {videos.map((video) => (
-              <div key={video.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow" data-testid={`video-card-${video.id}`}>
+            {videos.map((video, index) => (
+              <div 
+                key={video.id} 
+                className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-xl hover:border-red-300 dark:hover:border-red-600 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 animate-fade-in-up" 
+                style={{ animationDelay: `${index * 100}ms` }}
+                data-testid={`video-card-${video.id}`}
+              >
                 <img
                   src={video.thumbnail}
                   alt={video.title}
@@ -530,8 +535,13 @@ const YouTubeMonitoring = () => {
             <span>Channels ({channels.length})</span>
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {channels.map((channel) => (
-              <div key={channel.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow" data-testid={`channel-card-${channel.id}`}>
+            {channels.map((channel, index) => (
+              <div 
+                key={channel.id} 
+                className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 animate-fade-in-up" 
+                style={{ animationDelay: `${index * 100}ms` }}
+                data-testid={`channel-card-${channel.id}`}
+              >
                 <div className="flex items-center space-x-3 mb-3">
                   <img
                     src={channel.thumbnail}
