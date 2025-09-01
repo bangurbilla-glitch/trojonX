@@ -199,6 +199,94 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Default analysis endpoint
+  app.get('/api/youtube/analysis/default', async (req, res) => {
+    try {
+      // Simulate analysis with realistic data
+      const defaultAnalysis = {
+        sentiment: {
+          positive: 42,
+          neutral: 38,
+          negative: 20
+        },
+        harmfulContent: {
+          hateSpeech: 3,
+          misinformation: 7,
+          spam: 12
+        },
+        coordination: {
+          botActivity: 15,
+          campaigns: 2,
+          riskScore: 25
+        },
+        trending: {
+          topics: ['technology', 'politics', 'entertainment', 'education', 'gaming'],
+          keywords: ['AI', 'machine learning', 'social media', 'content moderation', 'digital safety']
+        },
+        summary: {
+          totalAnalyzed: 150,
+          flaggedContent: 22,
+          timestamp: new Date().toISOString()
+        }
+      };
+
+      res.json(defaultAnalysis);
+    } catch (error) {
+      console.error('Default analysis error:', error);
+      res.status(500).json({ error: 'Failed to generate analysis' });
+    }
+  });
+
+  // Content analysis endpoint
+  app.post('/api/youtube/analysis/content', async (req, res) => {
+    try {
+      const { videoIds } = req.body;
+
+      if (!videoIds || !Array.isArray(videoIds) || videoIds.length === 0) {
+        return res.status(400).json({ error: 'Video IDs are required for analysis' });
+      }
+
+      // Simulate content-specific analysis
+      const analysisResults = {
+        sentiment: {
+          positive: Math.floor(Math.random() * 40) + 30,
+          neutral: Math.floor(Math.random() * 30) + 25,
+          negative: Math.floor(Math.random() * 30) + 15
+        },
+        harmfulContent: {
+          hateSpeech: Math.floor(Math.random() * 8),
+          misinformation: Math.floor(Math.random() * 12),
+          spam: Math.floor(Math.random() * 20)
+        },
+        coordination: {
+          botActivity: Math.floor(Math.random() * 30),
+          campaigns: Math.floor(Math.random() * 5),
+          riskScore: Math.floor(Math.random() * 100)
+        },
+        trending: {
+          topics: ['news', 'viral', 'trending', 'breaking', 'update'],
+          keywords: ['latest', 'breaking news', 'viral video', 'trending now', 'must watch']
+        },
+        videoAnalysis: videoIds.map(id => ({
+          videoId: id,
+          riskScore: Math.floor(Math.random() * 100),
+          flags: Math.floor(Math.random() * 5),
+          sentiment: ['positive', 'neutral', 'negative'][Math.floor(Math.random() * 3)]
+        })),
+        summary: {
+          totalAnalyzed: videoIds.length,
+          flaggedContent: Math.floor(videoIds.length * 0.2),
+          timestamp: new Date().toISOString()
+        }
+      };
+
+      res.json(analysisResults);
+    } catch (error) {
+      console.error('Content analysis error:', error);
+      res.status(500).json({ error: 'Failed to analyze content' });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
